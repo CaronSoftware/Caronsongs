@@ -19,6 +19,7 @@
       color: white;
       overflow-x: hidden;
       text-align: center;
+      transition: all 0.4s ease;
     }
 
     h1 {
@@ -26,6 +27,21 @@
       margin-top: 30px;
       color: #ff2a2a;
       animation: fadeIn 1.5s ease-in;
+    }
+
+    .lang-btn {
+      background: #ff2a2a;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
+      transition: 0.3s;
+    }
+    .lang-btn:hover {
+      background: #ff4444;
     }
 
     .song-container {
@@ -76,7 +92,7 @@
     }
 
     main {
-      flex: 1; /* pushes footer to bottom */
+      flex: 1;
     }
 
     footer {
@@ -94,6 +110,11 @@
       text-decoration: none;
     }
 
+    [lang="fa"] {
+      direction: rtl;
+      font-family: "Vazir", sans-serif;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -105,15 +126,16 @@
     }
   </style>
 </head>
-<body>
+<body lang="en">
   <main>
-    <h1>CaronSongs 🎧</h1>
+    <h1 data-en="CaronSongs 🎧" data-fa="کارون سانگز 🎧">CaronSongs 🎧</h1>
+    <button class="lang-btn" onclick="toggleLang()">فارسی / English</button>
 
     <div class="song-container">
       <div class="song-card">
         <img src="hercule.jpg" alt="Hercule Funk">
         <div class="song-info">
-          <div class="song-title">Hercule Funk</div>
+          <div class="song-title" data-en="Hercule Funk" data-fa="کارون سانگز">Hercule Funk</div>
           <audio controls>
             <source src="hercule.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -124,7 +146,7 @@
       <div class="song-card">
         <img src="mehr.JPG" alt="Mehr Funk">
         <div class="song-info">
-          <div class="song-title">Mehr Funk</div>
+          <div class="song-title" data-en="Mehr Funk" data-fa="مِهر فانک">Mehr Funk</div>
           <audio controls>
             <source src="mehr.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -135,7 +157,7 @@
       <div class="song-card">
         <img src="prospect.jpg" alt="Prospect Funk">
         <div class="song-info">
-          <div class="song-title">Prospect Funk</div>
+          <div class="song-title" data-en="Prospect Funk" data-fa="پراسپکت فانک">Prospect Funk</div>
           <audio controls>
             <source src="prospect.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -145,8 +167,20 @@
     </div>
   </main>
 
-  <footer>
+  <footer data-en="© 2025 CaronSongs | Part of CaronSoftware" data-fa="© ۲۰۲۵ کارون سانگز | بخشی از کارون سافت">
     © 2025 CaronSongs | Part of <a href="https://caronsoftware.github.io/">CaronSoftware</a>
   </footer>
+
+  <script>
+    function toggleLang() {
+      const currentLang = document.body.getAttribute("lang");
+      const newLang = currentLang === "en" ? "fa" : "en";
+      document.body.setAttribute("lang", newLang);
+
+      document.querySelectorAll("[data-en]").forEach(el => {
+        el.textContent = el.getAttribute(`data-${newLang}`);
+      });
+    }
+  </script>
 </body>
 </html>
