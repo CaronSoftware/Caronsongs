@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CaronSongs 🎵</title>
+  <link rel="icon" href="hercule.jpg">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top left, #111, #000);
+      color: white;
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 30px;
+      color: #ff2a2a;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    .song-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px;
+    }
+
+    .song-card {
+      width: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: popIn 1s ease;
+    }
+
+    .song-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+    }
+
+    .song-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 2px solid #ff2a2a;
+    }
+
+    .song-info {
+      padding: 15px;
+    }
+
+    .song-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+      outline: none;
+      border-radius: 10px;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      border-top: 2px solid #ff2a2a;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>CaronSongs 🎧</h1>
+
+  <div class="song-container">
+    <div class="song-card">
+      <img src="hercule.jpg" alt="Hercule Funk">
+      <div class="song-info">
+        <div class="song-title">Hercule Funk</div>
+        <audio controls>
+          <source src="hercule.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+
+    <div class="song-card">
+      <img src="mehr.jpg" alt="Mehr Funk">
+      <div class="song-info">
+        <div class="song-title">Mehr Funk</div>
+        <audio controls>
+          <source src="mehr.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+
+    <div class="song-card">
+      <img src="prospect.jpg" alt="Prospect Funk">
+      <div class="song-info">
+        <div class="song-title">Prospect Funk</div>
+        <audio controls>
+          <source src="prospect.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 CaronSongs | Part of <a href="https://caronsoftware.github.io/" style="color:#ff2a2a;">CaronSoftware</a>
+  </footer>
+</body>
+</html>
