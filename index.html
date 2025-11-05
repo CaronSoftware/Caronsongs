@@ -40,6 +40,7 @@
       margin-top: 15px;
       transition: 0.3s;
     }
+
     .lang-btn:hover {
       background: #ff4444;
     }
@@ -58,13 +59,8 @@
       border-radius: 20px;
       box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       animation: popIn 1s ease;
-    }
-
-    .song-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
     }
 
     .song-card img {
@@ -138,7 +134,7 @@
     <button class="lang-btn" onclick="toggleLang()">فارسی / English</button>
 
     <div class="song-container">
-      <div class="song-card">
+      <div class="song-card" data-song="hercule.mp3">
         <img src="hercule.jpg" alt="Hercule Funk">
         <div class="song-info">
           <div class="song-title" data-en="Hercule Funk" data-fa="هرکول فانک">Hercule Funk</div>
@@ -149,7 +145,7 @@
         </div>
       </div>
 
-      <div class="song-card">
+      <div class="song-card" data-song="mehr.mp3">
         <img src="mehr.JPG" alt="Mehr Funk">
         <div class="song-info">
           <div class="song-title" data-en="Mehr Funk" data-fa="مِهر فانک">Mehr Funk</div>
@@ -160,7 +156,7 @@
         </div>
       </div>
 
-      <div class="song-card">
+      <div class="song-card" data-song="prospect.mp3">
         <img src="prospect.jpg" alt="Prospect Funk">
         <div class="song-info">
           <div class="song-title" data-en="Prospect Funk" data-fa="پراسپکت فانک">Prospect Funk</div>
@@ -183,11 +179,38 @@
       const currentLang = document.body.getAttribute("lang");
       const newLang = currentLang === "en" ? "fa" : "en";
       document.body.setAttribute("lang", newLang);
-
       document.querySelectorAll("[data-en]").forEach(el => {
         el.textContent = el.getAttribute(`data-${newLang}`);
       });
     }
+
+    // 🔊 Beat-reactive animation
+    const cards = document.querySelectorAll('.song-card');
+    cards.forEach(card => {
+      const audio = card.querySelector('audio');
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const src = ctx.createMediaElementSource(audio);
+      const analyser = ctx.createAnalyser();
+      src.connect(analyser);
+      analyser.connect(ctx.destination);
+      analyser.fftSize = 256;
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        analyser.getByteFrequencyData(dataArray);
+        const avg = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
+        const scale = 1 + avg / 300;
+        card.style.transform = `scale(${scale})`;
+        card.style.boxShadow = `0 0 ${avg / 1.5}px rgba(255, 50, 50, 0.7)`;
+      }
+
+      audio.addEventListener('play', () => {
+        ctx.resume();
+        animate();
+      });
+    });
   </script>
 </body>
 </html>
