@@ -201,7 +201,7 @@
         requestAnimationFrame(animate);
         analyser.getByteFrequencyData(dataArray);
         const avg = dataArray.reduce((a, b) => a + b, 0) / bufferLength;
-        const scale = 1 + avg / 300;
+        const scale = 1 + avg / 600;
         card.style.transform = `scale(${scale})`;
         card.style.boxShadow = `0 0 ${avg / 1.5}px rgba(255, 50, 50, 0.7)`;
       }
